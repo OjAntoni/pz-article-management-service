@@ -19,6 +19,8 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private UUID author;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Topic topic;
     private String title;
     @ElementCollection
     @CollectionTable(name = "tags", joinColumns = @JoinColumn(name = "article_id"))
