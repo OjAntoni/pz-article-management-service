@@ -1,6 +1,8 @@
 package com.example.pzarticlemanagementservice.service;
 
+import com.example.pzarticlemanagementservice.model.Article;
 import com.example.pzarticlemanagementservice.model.Topic;
+import com.example.pzarticlemanagementservice.repository.ArticleRepository;
 import com.example.pzarticlemanagementservice.repository.TopicRepository;
 import com.example.pzarticlemanagementservice.web.dto.TopicDto;
 import lombok.AllArgsConstructor;
@@ -14,6 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class TopicService {
     private TopicRepository topicRepository;
+    private ArticleRepository articleRepository;
 
     public Topic save(Topic topic) {
         return topicRepository.save(topic);
@@ -31,6 +34,11 @@ public class TopicService {
     }
 
     public void delete(UUID uuid){
+        List<Article> articles = articleRepository.findAllByTopicId(uuid);
+        articles.forEach(a -> {
+            a.setTopic(null);
+            articleRepository.save(a);
+        });
         topicRepository.deleteById(uuid);
     }
 

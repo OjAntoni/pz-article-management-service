@@ -68,7 +68,7 @@ public class TopicResource {
     @DeleteMapping("/{id}")
     ResponseEntity<Topic> deleteById(@PathVariable UUID id){
         topicService.delete(id);
-        return new ResponseEntity<>(HttpStatus.GONE);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
 }

@@ -9,4 +9,5 @@ import java.util.UUID;
 
 public interface ArticleRepository extends JpaRepository<Article, UUID>, JpaSpecificationExecutor<Article> {
     List<Article> findAllByAuthor(UUID id);
+    List<Article> findAllByTopicId(UUID id);
 }

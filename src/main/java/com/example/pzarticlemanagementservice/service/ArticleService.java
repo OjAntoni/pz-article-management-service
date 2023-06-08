@@ -2,6 +2,8 @@ package com.example.pzarticlemanagementservice.service;
 
 import com.example.pzarticlemanagementservice.model.Article;
 import com.example.pzarticlemanagementservice.repository.ArticleRepository;
+import com.example.pzarticlemanagementservice.repository.TopicRepository;
+import com.example.pzarticlemanagementservice.web.dto.CommentResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +19,8 @@ import java.util.UUID;
 public class ArticleService {
     @Autowired
     private ArticleRepository articleRepository;
+    private TopicRepository topicRepository;
+    private UserActivityService userActivityService;
 
     public Article save(Article article){
         article.setCreatedAt(LocalDateTime.now());
@@ -32,12 +36,15 @@ public class ArticleService {
                     article.setCreatedAt(newArticle.getCreatedAt());
                     article.setContent(newArticle.getContent());
                     article.setImages(newArticle.getImages());
+                    article.setTopic(topicRepository.findById(newArticle.getTopic().getId()).orElse(null));
                     return articleRepository.save(article);
                 })
                 .orElse(null);
     }
 
     public void delete (UUID uuid){
+        List<CommentResponseDto> comm = userActivityService.getAllComments(uuid);
+        comm.forEach(c -> userActivityService.deleteComment(c.getUuid()));
         articleRepository.deleteById(uuid);
     }
 
