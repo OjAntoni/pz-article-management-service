@@ -1,6 +1,7 @@
 package com.example.pzarticlemanagementservice.web;
 
 import com.example.pzarticlemanagementservice.model.Article;
+import com.example.pzarticlemanagementservice.model.Topic;
 import com.example.pzarticlemanagementservice.repository.ArticleSpecification;
 import com.example.pzarticlemanagementservice.service.ArticleService;
 import com.example.pzarticlemanagementservice.web.dto.ArticleDto;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +48,11 @@ public class ArticleResource {
                         .and(ArticleSpecification.createdAtBetween(start, end))
         );
         return new ResponseEntity<>(articleService.getAll(spec, page, Math.max(10, size)), HttpStatus.OK);
+    }
+
+    @GetMapping("/all/{id}")
+    ResponseEntity<List<Article>> getByAllForUser(@PathVariable UUID id){
+        return new ResponseEntity<>(articleService.getAllForUser(id), HttpStatus.OK);
     }
 
     @PutMapping("{id}")

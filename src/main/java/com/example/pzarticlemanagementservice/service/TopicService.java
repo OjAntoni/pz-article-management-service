@@ -44,4 +44,8 @@ public class TopicService {
     public List<Topic> getAll(String title){
         return topicRepository.findAllByTitleContainsIgnoreCase(title);
     }
+
+    public List<Topic> getAllForUser(UUID uuid){
+        return topicRepository.findAllByAuthor(uuid);
+    }
 }

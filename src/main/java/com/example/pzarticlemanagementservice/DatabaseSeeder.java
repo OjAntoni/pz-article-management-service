@@ -48,7 +48,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 article.setContent("Test content " + i);
                 article.setImages(List.of(new URL("http://example.com/image" + i + ".jpg")));
                 article.setTopic(save);
-                articleRepository.save(article);
+//                articleRepository.save(article);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }

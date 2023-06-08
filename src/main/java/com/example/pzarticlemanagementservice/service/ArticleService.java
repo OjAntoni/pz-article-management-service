@@ -45,6 +45,8 @@ public class ArticleService {
         return articleRepository.findAll(spec, PageRequest.of(page, size)).getContent();
     }
 
-
+    public List<Article> getAllForUser(UUID id){
+        return articleRepository.findAllByAuthor(id);
+    }
 
 }
