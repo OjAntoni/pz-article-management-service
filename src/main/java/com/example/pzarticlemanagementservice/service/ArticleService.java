@@ -36,7 +36,11 @@ public class ArticleService {
                     article.setCreatedAt(newArticle.getCreatedAt());
                     article.setContent(newArticle.getContent());
                     article.setImages(newArticle.getImages());
-                    article.setTopic(topicRepository.findById(newArticle.getTopic().getId()).orElse(null));
+                    if(newArticle.getTopic()==null){
+                        article.setTopic(null);
+                    } else {
+                        article.setTopic(topicRepository.findById(newArticle.getTopic().getId()).orElse(null));
+                    }
                     return articleRepository.save(article);
                 })
                 .orElse(null);
@@ -54,6 +58,10 @@ public class ArticleService {
 
     public List<Article> getAllForUser(UUID id){
         return articleRepository.findAllByAuthor(id);
+    }
+
+    public Article getById(UUID id){
+        return articleRepository.findById(id).orElse(null);
     }
 
 }

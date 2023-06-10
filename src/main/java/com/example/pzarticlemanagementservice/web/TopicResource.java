@@ -44,6 +44,7 @@ public class TopicResource {
     ResponseEntity<List<Topic>> getByAll(){
         return new ResponseEntity<>(topicService.getAll(), HttpStatus.OK);
     }
+
     @GetMapping("/all/{id}")
     ResponseEntity<List<Topic>> getByAllForUser(@PathVariable UUID id){
         return new ResponseEntity<>(topicService.getAllForUser(id), HttpStatus.OK);

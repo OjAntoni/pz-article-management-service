@@ -77,4 +77,9 @@ public class ArticleResource {
         return new ResponseEntity<>(articleService.save(articleMapper.toEntity(dto)), HttpStatus.CREATED);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getArticleById(@PathVariable UUID id){
+        return new ResponseEntity<>(articleService.getById(id), HttpStatus.OK);
+    }
+
 }
