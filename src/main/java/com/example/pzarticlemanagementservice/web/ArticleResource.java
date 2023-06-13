@@ -4,6 +4,7 @@ import com.example.pzarticlemanagementservice.model.Article;
 import com.example.pzarticlemanagementservice.model.Topic;
 import com.example.pzarticlemanagementservice.repository.ArticleSpecification;
 import com.example.pzarticlemanagementservice.service.ArticleService;
+import com.example.pzarticlemanagementservice.service.TopicService;
 import com.example.pzarticlemanagementservice.web.dto.ArticleDto;
 import com.example.pzarticlemanagementservice.web.mapper.ArticleMapper;
 import jakarta.validation.Valid;
@@ -30,6 +31,8 @@ public class ArticleResource {
     private ArticleService articleService;
     @Autowired
     private ArticleMapper articleMapper;
+    @Autowired
+    private TopicService topicService;
 
     @GetMapping("/search")
     public ResponseEntity<?> searchArticles(
@@ -74,7 +77,12 @@ public class ArticleResource {
             result.getFieldErrors().forEach(e -> map.put(e.getField(), e.getDefaultMessage()));
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
         }
-        Article a = articleService.save(articleMapper.toEntity(dto));
+        System.out.println(dto);
+        Article article = articleMapper.toEntity(dto);
+        if(article.getTopic()==null || topicService.get(article.getTopic().getId()) == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        Article a = articleService.save(article);
         articleService.sendToQueue(a);
         return new ResponseEntity<>(a, HttpStatus.CREATED);
     }

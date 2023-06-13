@@ -1,5 +1,6 @@
 package com.example.pzarticlemanagementservice.web.dto;
 
+import com.example.pzarticlemanagementservice.model.Topic;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArticleDto {
+    @NotNull
     private UUID author;
     @NotNull @NotBlank @Length(min = 2)
     private String title;
@@ -22,4 +24,6 @@ public class ArticleDto {
     @NotNull @NotBlank
     private String content;
     private List<URL> images;
+    @NotNull
+    private Topic topic;
 }

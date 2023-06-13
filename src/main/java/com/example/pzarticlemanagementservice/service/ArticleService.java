@@ -41,7 +41,7 @@ public class ArticleService {
 
     @SneakyThrows
     public void sendToQueue(Article article){
-        jmsTemplate.convertAndSend("ArticleMB", article);
+        jmsTemplate.convertAndSend("ArticleMB", objectMapper.writeValueAsString(article));
     }
 
     public Article update (UUID id, Article newArticle){

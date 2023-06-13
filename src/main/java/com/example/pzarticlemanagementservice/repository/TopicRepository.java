@@ -12,4 +12,5 @@ public interface TopicRepository extends JpaRepository<Topic, UUID> {
     List<Topic> findAllByTitleContainsIgnoreCase(String title);
     List<Topic> findAllByTitleLike(String title);
     List<Topic> findAllByAuthor(UUID uuid);
+
 }

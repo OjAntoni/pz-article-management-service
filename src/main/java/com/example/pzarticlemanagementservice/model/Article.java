@@ -20,7 +20,7 @@ public class Article implements Serializable {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private UUID author;
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
     private Topic topic;
     private String title;
     @ElementCollection
