@@ -74,7 +74,9 @@ public class ArticleResource {
             result.getFieldErrors().forEach(e -> map.put(e.getField(), e.getDefaultMessage()));
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(articleService.save(articleMapper.toEntity(dto)), HttpStatus.CREATED);
+        Article a = articleService.save(articleMapper.toEntity(dto));
+        articleService.sendToQueue(a);
+        return new ResponseEntity<>(a, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")

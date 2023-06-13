@@ -4,10 +4,19 @@ import com.example.pzarticlemanagementservice.model.Article;
 import com.example.pzarticlemanagementservice.repository.ArticleRepository;
 import com.example.pzarticlemanagementservice.repository.TopicRepository;
 import com.example.pzarticlemanagementservice.web.dto.CommentResponseDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.jms.JMSException;
+import jakarta.jms.Message;
+import jakarta.jms.Session;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
+
+
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,10 +30,18 @@ public class ArticleService {
     private ArticleRepository articleRepository;
     private TopicRepository topicRepository;
     private UserActivityService userActivityService;
+    private ObjectMapper objectMapper;
+
+    private JmsTemplate jmsTemplate;
 
     public Article save(Article article){
         article.setCreatedAt(LocalDateTime.now());
         return articleRepository.save(article);
+    }
+
+    @SneakyThrows
+    public void sendToQueue(Article article){
+        jmsTemplate.convertAndSend("ArticleMB", article);
     }
 
     public Article update (UUID id, Article newArticle){
