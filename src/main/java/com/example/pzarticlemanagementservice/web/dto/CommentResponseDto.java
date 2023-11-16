@@ -17,7 +17,7 @@ import java.util.UUID;
 public class CommentResponseDto {
     private UUID uuid;
     private LocalDateTime createdAt;
-    private UUID authorId;
+    private long authorId;
     private String content;
     private UUID articleId;
 

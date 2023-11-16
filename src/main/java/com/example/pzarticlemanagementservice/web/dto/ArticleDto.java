@@ -17,7 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class ArticleDto {
     @NotNull
-    private UUID author;
+    private long author;
     @NotNull @NotBlank @Length(min = 2)
     private String title;
     private List<String> tags;

@@ -19,7 +19,7 @@ public class Article implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private UUID author;
+    private long author;
     @OneToOne
     private Topic topic;
     private String title;

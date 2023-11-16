@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ArticleRepository extends JpaRepository<Article, UUID>, JpaSpecificationExecutor<Article> {
-    List<Article> findAllByAuthor(UUID id);
+    List<Article> findAllByAuthor(long id);
     List<Article> findAllByTopicId(UUID id);
 }

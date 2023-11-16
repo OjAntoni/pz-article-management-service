@@ -36,7 +36,7 @@ public class ArticleResource {
 
     @GetMapping("/search")
     public ResponseEntity<?> searchArticles(
-            @RequestParam(required = false) UUID author,
+            @RequestParam(required = false) long author,
             @RequestParam(required = false) String title,
             @RequestParam(required = false) List<String> tags,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
@@ -54,7 +54,7 @@ public class ArticleResource {
     }
 
     @GetMapping("/all/{id}")
-    ResponseEntity<List<Article>> getByAllForUser(@PathVariable UUID id){
+    ResponseEntity<List<Article>> getByAllForUser(@PathVariable long id){
         return new ResponseEntity<>(articleService.getAllForUser(id), HttpStatus.OK);
     }
 

@@ -6,10 +6,9 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.UUID;
 
 public class ArticleSpecification {
-    public static Specification<Article> hasAuthor(UUID author) {
+    public static Specification<Article> hasAuthor(long author) {
         return (article, cq, cb) -> author == null ? cb.conjunction() : cb.equal(article.get("author"), author);
     }
 
