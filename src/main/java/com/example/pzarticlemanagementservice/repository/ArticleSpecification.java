@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public class ArticleSpecification {
     public static Specification<Article> hasAuthor(long author) {
-        return (article, cq, cb) -> author == null ? cb.conjunction() : cb.equal(article.get("author"), author);
+        return (article, cq, cb) -> author <= 0 ? cb.conjunction() : cb.equal(article.get("author"), author);
     }
 
     public static Specification<Article> hasTitle(String title) {
