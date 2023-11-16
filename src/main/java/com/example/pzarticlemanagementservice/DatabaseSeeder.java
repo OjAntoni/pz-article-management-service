@@ -36,7 +36,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 Topic topic = new Topic();
                 topic.setDescription("Description"+i);
                 topic.setTitle("Title"+i);
-                topic.setAuthor(UUID.randomUUID());
+                topic.setAuthor(new Random().nextLong());
                 Topic save = topicRepository.save(topic);
 
                 Article article = new Article();

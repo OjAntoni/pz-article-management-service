@@ -16,7 +16,7 @@ public class Topic {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private UUID author;
+    private long author;
     private String title;
     private String description;
 }

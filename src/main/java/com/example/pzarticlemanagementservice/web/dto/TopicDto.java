@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TopicDto {
-    private UUID author;
+    private long author;
     @NotNull
     @NotBlank
     @Length(min = 3)

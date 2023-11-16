@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.UUID;
 
-@FeignClient(name = "user-activity-service", url = "${user-activity-service.url}")
+@FeignClient(name = "ENGAGE-HUB-SERVICE")
 public interface UserActivityService {
     @GetMapping("/api/v1/comment")
     List<CommentResponseDto> getAllComments(@RequestParam UUID postId);
